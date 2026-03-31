@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-orange: #f49619;
+  --color-brand-orange-dark: #c97d10;
+  --color-brand-dark: #0d0f14;
+  --color-brand-dark-2: #1b1f29;
+  --color-brand-dark-3: #252a38;
+  --color-brand-light: #ffffff;
+  --color-brand-off-white: #f5f2ee;
+  --font-sans: 'ArialNarrow', 'Arial Narrow', 'Arial', 'Helvetica', 'sans-serif';
+}
+
+@font-face {
+  font-family: 'ArialNarrow';
+  src: url('https://www.methodestephanieraphael.com/wp-content/uploads/2025/05/arialnarrow.ttf') format('truetype');
+  font-weight: 400; font-style: normal;
+}
+@font-face {
+  font-family: 'ArialNarrow';
+  src: url('https://www.methodestephanieraphael.com/wp-content/uploads/2025/05/Arial-Narrow-Bold.ttf') format('truetype');
+  font-weight: 700; font-style: normal;
+}
+@font-face {
+  font-family: 'ArialNarrow';
+  src: url('https://www.methodestephanieraphael.com/wp-content/uploads/2025/05/arialnarrow_italic.ttf') format('truetype');
+  font-weight: 400; font-style: italic;
+}
+@font-face {
+  font-family: 'ArialNarrow';
+  src: url('https://www.methodestephanieraphael.com/wp-content/uploads/2025/05/arialnarrow_bolditalic.ttf') format('truetype');
+  font-weight: 700; font-style: italic;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-brand-dark-2);
+    background-color: var(--color-brand-light);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer components {
+  .container-custom {
+    max-width: 1180px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+  }
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--color-brand-orange);
+    margin-bottom: 0.75rem;
+  }
+  .btn-orange {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    border-radius: 0.375rem;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition-property: all;
+    transition-duration: 300ms;
+    border: 2px solid transparent;
+    background-color: var(--color-brand-orange);
+    color: white;
+  }
+  .btn-orange:hover {
+    background-color: var(--color-brand-orange-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(244,150,25,0.35);
+  }
+  .btn-white-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    border-radius: 0.375rem;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition-property: all;
+    transition-duration: 300ms;
+    border: 2px solid rgba(255,255,255,0.5);
+    background-color: transparent;
+    color: white;
+  }
+  .btn-white-outline:hover {
+    background-color: white;
+    color: var(--color-brand-dark-2);
+    transform: translateY(-2px);
+  }
+}
