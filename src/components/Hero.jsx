@@ -231,13 +231,11 @@ export default function Hero() {
       </div>
 
       {/* Logo marquee — overlaid at bottom of hero */}
-      <div className="absolute bottom-0 left-0 right-0 z-20 pb-4 pt-6">
-        <p className="text-center text-[10px] md:text-[11px] font-bold uppercase tracking-[3px] text-white/40 mb-3">
+      <div className="absolute bottom-0 left-0 right-0 z-20 pb-6 pt-4">
+        <p className="text-center text-[10px] md:text-[11px] font-bold uppercase tracking-[3px] text-white/40 mb-5">
           Ils font confiance à Stéphanie Raphaël
         </p>
         <div className="relative w-full overflow-hidden">
-          <div className="absolute left-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-r from-brand-dark to-transparent z-10 pointer-events-none" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-l from-brand-dark to-transparent z-10 pointer-events-none" />
           <div className="flex w-max animate-marquee">
             {[0, 1].map(set => (
               <div key={set} className="flex items-center shrink-0">
@@ -257,7 +255,7 @@ export default function Hero() {
                   { src: `${import.meta.env.BASE_URL}logos/logo-saipem-300x300.png`, alt: "Saipem" },
                   { src: `${import.meta.env.BASE_URL}logos/logo-SC-Po-300x300.png`, alt: "Sciences Po" },
                 ].map((logo, i) => (
-                  <div key={`${set}-${i}`} className="shrink-0 w-[80px] h-[50px] md:w-[120px] md:h-[65px] overflow-hidden mx-3 md:mx-5 flex items-center justify-center">
+                  <div key={`${set}-${i}`} className="shrink-0 w-[60px] h-[28px] md:w-[80px] md:h-[35px] overflow-hidden mx-4 md:mx-6 flex items-center justify-center">
                     <img
                       src={logo.src}
                       alt={logo.alt}

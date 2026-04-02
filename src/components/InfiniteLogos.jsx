@@ -1,20 +1,21 @@
 import React from 'react';
 
+const B = import.meta.env.BASE_URL;
 const logos = [
-  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-eads-300x300.jpg", alt: "EADS" },
-  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-total-300x300.jpg", alt: "TotalEnergies" },
-  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-schneider-300x300.jpg", alt: "Schneider Electric" },
-  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-edhec-300x300.jpg", alt: "EDHEC" },
-  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-dauphine-psl-300x300.jpg", alt: "Paris Dauphine PSL" },
-  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-CA-300x300.jpg", alt: "Crédit Agricole" },
-  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-laposte-300x300.jpg", alt: "La Poste" },
-  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-inria-300x300.jpg", alt: "INRIA" },
-  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-G-roussy-300x300.jpg", alt: "Gustave Roussy" },
-  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-amundi-300x300.jpg", alt: "Amundi" },
-  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-malakoff-300x300.jpg", alt: "Malakoff Humanis" },
-  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-valoourec-300x300.jpg", alt: "Vallourec" },
-  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-saipem-300x300.jpg", alt: "Saipem" },
-  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-SC-Po-300x300.jpg", alt: "Sciences Po" },
+  { src: `${B}logos/logo-eads-300x300.png`, alt: "EADS" },
+  { src: `${B}logos/logo-total-300x300.png`, alt: "TotalEnergies" },
+  { src: `${B}logos/logo-schneider-300x300.png`, alt: "Schneider Electric" },
+  { src: `${B}logos/logo-edhec-300x300.png`, alt: "EDHEC" },
+  { src: `${B}logos/logo-dauphine-psl-300x300.png`, alt: "Paris Dauphine PSL" },
+  { src: `${B}logos/logo-CA-300x300.png`, alt: "Crédit Agricole" },
+  { src: `${B}logos/logo-laposte-300x300.png`, alt: "La Poste" },
+  { src: `${B}logos/logo-inria-300x300.png`, alt: "INRIA" },
+  { src: `${B}logos/logo-G-roussy-300x300.png`, alt: "Gustave Roussy" },
+  { src: `${B}logos/logo-amundi-300x300.png`, alt: "Amundi" },
+  { src: `${B}logos/logo-malakoff-300x300.png`, alt: "Malakoff Humanis" },
+  { src: `${B}logos/logo-valoourec-300x300.png`, alt: "Vallourec" },
+  { src: `${B}logos/logo-saipem-300x300.png`, alt: "Saipem" },
+  { src: `${B}logos/logo-SC-Po-300x300.png`, alt: "Sciences Po" },
 ];
 
 function LogoItem({ logo }) {
@@ -27,9 +28,7 @@ function LogoItem({ logo }) {
         className="w-full h-full object-contain"
         style={{
           filter: 'brightness(0) invert(1)',
-          mixBlendMode: 'screen',
-          transform: 'scale(1.7)',
-          opacity: 0.65,
+          opacity: 0.7,
         }}
       />
     </div>
