@@ -146,7 +146,7 @@ export default function Hero() {
   const [videoReady, setVideoReady] = useState(false);
 
   return (
-    <section className="relative min-h-[85svh] flex items-center pt-24 pb-12 overflow-hidden bg-brand-dark">
+    <section className="relative min-h-[600px] lg:min-h-[100svh] flex items-center pt-24 pb-12 overflow-hidden bg-brand-dark">
       {/* Video Background */}
       <div className="absolute inset-0 w-full h-full z-0">
         {/* Poster — always visible instantly */}
@@ -227,6 +227,52 @@ export default function Hero() {
             <CircleSlider />
           </motion.div>
           
+        </div>
+      </div>
+
+      {/* Logo marquee — overlaid at bottom of hero */}
+      <div className="absolute bottom-0 left-0 right-0 z-20 pb-4 pt-6">
+        <p className="text-center text-[10px] md:text-[11px] font-bold uppercase tracking-[3px] text-white/40 mb-3">
+          Ils font confiance à Stéphanie Raphaël
+        </p>
+        <div className="relative w-full overflow-hidden">
+          <div className="absolute left-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-r from-brand-dark to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-l from-brand-dark to-transparent z-10 pointer-events-none" />
+          <div className="flex w-max animate-marquee">
+            {[0, 1].map(set => (
+              <div key={set} className="flex items-center shrink-0">
+                {[
+                  { src: `${import.meta.env.BASE_URL}logos/logo-eads-300x300.png`, alt: "EADS" },
+                  { src: `${import.meta.env.BASE_URL}logos/logo-total-300x300.png`, alt: "TotalEnergies" },
+                  { src: `${import.meta.env.BASE_URL}logos/logo-schneider-300x300.png`, alt: "Schneider Electric" },
+                  { src: `${import.meta.env.BASE_URL}logos/logo-edhec-300x300.png`, alt: "EDHEC" },
+                  { src: `${import.meta.env.BASE_URL}logos/logo-dauphine-psl-300x300.png`, alt: "Paris Dauphine PSL" },
+                  { src: `${import.meta.env.BASE_URL}logos/logo-CA-300x300.png`, alt: "Crédit Agricole" },
+                  { src: `${import.meta.env.BASE_URL}logos/logo-laposte-300x300.png`, alt: "La Poste" },
+                  { src: `${import.meta.env.BASE_URL}logos/logo-inria-300x300.png`, alt: "INRIA" },
+                  { src: `${import.meta.env.BASE_URL}logos/logo-G-roussy-300x300.png`, alt: "Gustave Roussy" },
+                  { src: `${import.meta.env.BASE_URL}logos/logo-amundi-300x300.png`, alt: "Amundi" },
+                  { src: `${import.meta.env.BASE_URL}logos/logo-malakoff-300x300.png`, alt: "Malakoff Humanis" },
+                  { src: `${import.meta.env.BASE_URL}logos/logo-valoourec-300x300.png`, alt: "Vallourec" },
+                  { src: `${import.meta.env.BASE_URL}logos/logo-saipem-300x300.png`, alt: "Saipem" },
+                  { src: `${import.meta.env.BASE_URL}logos/logo-SC-Po-300x300.png`, alt: "Sciences Po" },
+                ].map((logo, i) => (
+                  <div key={`${set}-${i}`} className="shrink-0 w-[80px] h-[50px] md:w-[120px] md:h-[65px] overflow-hidden mx-3 md:mx-5 flex items-center justify-center">
+                    <img
+                      src={logo.src}
+                      alt={logo.alt}
+                      loading="lazy"
+                      className="w-full h-full object-contain"
+                      style={{
+                        filter: 'brightness(0) invert(1)',
+                        opacity: 0.6,
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

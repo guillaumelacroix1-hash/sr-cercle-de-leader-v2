@@ -24,11 +24,12 @@ function LogoItem({ logo }) {
         src={logo.src}
         alt={logo.alt}
         loading="lazy"
-        className="w-full h-full object-contain opacity-90"
+        className="w-full h-full object-contain"
         style={{
-          filter: 'invert(1) brightness(2)',
+          filter: 'brightness(0) invert(1)',
           mixBlendMode: 'screen',
           transform: 'scale(1.7)',
+          opacity: 0.65,
         }}
       />
     </div>

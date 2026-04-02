@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import InfiniteLogos from './components/InfiniteLogos';
 import ProblemSolution from './components/ProblemSolution';
 import Benefits from './components/Benefits';
 import ProgramDetails from './components/ProgramDetails';
@@ -17,7 +16,6 @@ function App() {
       <Header />
       <main>
         <Hero />
-        <InfiniteLogos />
         <ProblemSolution />
         <Benefits />
         <ProgramDetails />
