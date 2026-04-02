@@ -1,86 +1,100 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-export default function FormatPrice() {
-  const formatCards = [
-    { icon: "👥", val: "10", subtitle: "Leaders max", desc: "8 secteurs représentés" },
-    { icon: "⏱", val: "4h", subtitle: "Par mois", desc: "Intensif · Cas réels" },
-    { icon: "📍", val: "Paris", subtitle: "Paris & Boulogne", desc: "Espace confidentiel" },
-    { icon: "📅", val: "10", subtitle: "Mois d'engagement", desc: "Progression profonde" },
-  ];
+const features = [
+  { val: "10", unit: "mois", label: "d'accompagnement intensif" },
+  { val: "10", unit: "leaders", label: "max par cercle" },
+  { val: "4h", unit: "/mois", label: "sessions en présentiel à Paris" },
+  { val: "8", unit: "secteurs", label: "représentés pour enrichir les échanges" }
+];
 
+export default function FormatPrice() {
   return (
-    <section className="bg-brand-off-white py-24" id="format">
-      <div className="container-custom">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="tag">Le format</span>
-          <h2 className="font-bold text-[clamp(1.75rem,4vw,3.2rem)] uppercase leading-[1.15]">
-            Exigeant par design.<br />Efficace par nature.
+    <section id="format" className="bg-brand-off-white text-brand-dark-2">
+
+      {/* Format section */}
+      <div className="py-24 md:py-32 container-custom">
+        <div className="max-w-2xl mb-16">
+          <span className="tag mb-4">Le format</span>
+          <h2 className="text-[clamp(2rem,3.5vw,3rem)] font-bold uppercase leading-tight">
+            Exigeant par design. <span className="text-brand-orange">Efficace par nature.</span>
           </h2>
         </div>
 
-        {/* Info Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {formatCards.map((card, i) => (
-            <motion.div 
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -5 }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="bg-white border border-gray-200 rounded-2xl p-8 text-center hover:shadow-xl transition-all duration-300"
-            >
-              <div className="text-4xl mb-4">{card.icon}</div>
-              <span className="block font-bold text-4xl text-brand-dark-2 mb-2">{card.val}</span>
-              <span className="block text-[13px] text-gray-500 leading-relaxed">
-                <strong className="text-gray-700">{card.subtitle}</strong><br />
-                {card.desc}
-              </span>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Pricing Banner */}
-        <motion.div 
-          initial={{ opacity: 0, y: 50, scale: 0.98 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        {/* Metric strip — bold horizontal ticker style */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-brand-dark-2 rounded-2xl p-8 lg:p-12 flex flex-col lg:flex-row items-center justify-between gap-10 shadow-2xl relative overflow-hidden"
+          className="relative rounded-2xl overflow-hidden mb-24"
         >
-          {/* Subtle decoration */}
-          <div className="absolute right-0 bottom-0 w-64 h-64 bg-brand-orange rounded-full blur-[120px] opacity-20 pointer-events-none" />
+          {/* Dark background */}
+          <div className="absolute inset-0 bg-brand-dark" />
+          {/* Subtle gradient accent */}
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-orange/10 via-transparent to-brand-orange/5" />
 
-          {/* Price Context */}
-          <div className="text-center lg:text-left relative z-10 flex-1">
-            <h3 className="text-white font-bold text-2xl uppercase mb-2">Investissement 2026/27</h3>
-            <p className="text-white/50 text-[13px] mb-4">Adhésion annuelle · Engagement 10 mois</p>
-            <p className="text-[11px] text-white/30 uppercase tracking-[1px] font-bold">
-              N° formation : 11 92 29538 92 · Île-de-France<br/>
-              Éligible financement entreprise
-            </p>
-          </div>
-
-          {/* Price Tag */}
-          <div className="text-center relative z-10">
-            <div className="font-bold text-[clamp(3.5rem,5vw,5rem)] text-brand-orange leading-none mb-2">450 €</div>
-            <div className="text-[13px] text-white/50 uppercase tracking-[2px] font-bold">net de taxe / mois</div>
-          </div>
-
-          {/* CTA Box */}
-          <div className="bg-brand-orange/15 border border-brand-orange/30 rounded-xl py-6 px-8 text-center w-full lg:w-auto min-w-[260px] relative z-10 backdrop-blur-sm">
-            <span className="inline-block bg-brand-orange text-white px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-3">
-              Places disponibles
-            </span>
-            <h3 className="text-white font-bold text-lg uppercase mb-1">Cercle N°4 — 2026</h3>
-            <p className="text-white/60 text-[13px] mb-6">Adhésion en cours<br/>10 dirigeants maximum</p>
-            <a href="#inscription" className="btn-orange w-full justify-center text-[13px]">
-              Candidater →
-            </a>
+          <div className="relative z-10 grid grid-cols-2 lg:grid-cols-4">
+            {features.map((item, index) => (
+              <div
+                key={index}
+                className={`p-8 lg:p-10 flex flex-col items-center text-center ${
+                  index < features.length - 1 ? 'border-r border-white/10' : ''
+                } ${index < 2 ? 'border-b lg:border-b-0 border-white/10' : ''}`}
+              >
+                <div className="flex items-baseline gap-1.5 mb-2">
+                  <span className="text-[clamp(2.5rem,4vw,3.5rem)] font-bold text-brand-orange leading-none">{item.val}</span>
+                  <span className="text-sm font-bold text-white/40 uppercase tracking-wider">{item.unit}</span>
+                </div>
+                <p className="text-white/50 text-sm leading-relaxed">{item.label}</p>
+              </div>
+            ))}
           </div>
         </motion.div>
 
       </div>
+
+      {/* Price block — full width with video background */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        className="relative py-20 lg:py-28 overflow-hidden"
+      >
+        {/* Background Video — Eye */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover bg-brand-dark"
+          >
+            <source src="https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/bandeau-oeil.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-brand-dark/50" />
+        </div>
+
+        <div className="container-custom relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-12">
+          <div>
+            <h3 className="text-white font-bold text-3xl lg:text-4xl uppercase mb-4">Investissement 2026/27</h3>
+            <p className="text-white/70 text-xl">Adhésion annuelle · Engagement 10 mois</p>
+            <p className="text-white/50 text-lg mt-3">N° formation : 11 92 29538 92 · Île-de-France · Éligible financement entreprise</p>
+          </div>
+
+          <div className="text-left lg:text-center shrink-0">
+            <div className="text-[clamp(3.5rem,6vw,5rem)] font-bold text-brand-orange leading-none">450 €</div>
+            <p className="text-white/70 text-xl mt-2">net de taxe / mois</p>
+          </div>
+
+          <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 text-center shrink-0 min-w-[260px]">
+            <span className="inline-block bg-brand-orange text-white text-sm font-bold uppercase tracking-wider px-5 py-2 rounded-full mb-4">Places disponibles</span>
+            <h4 className="text-white font-bold uppercase text-2xl mb-2">Cercle N°4 — 2026</h4>
+            <p className="text-white/70 text-lg mb-6">10 dirigeants maximum</p>
+            <a href="#inscription" className="btn-orange w-full justify-center text-base py-4">Réserver un entretien →</a>
+          </div>
+        </div>
+      </motion.div>
+
     </section>
   );
 }

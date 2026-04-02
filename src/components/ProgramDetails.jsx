@@ -1,114 +1,238 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Clock, Users, MapPin, Layers } from 'lucide-react';
 
-const themes = [
+const features = [
+  { val: "10", unit: "mois", label: "d'accompagnement intensif", icon: Clock },
+  { val: "10", unit: "leaders", label: "max par cercle", icon: Users },
+  { val: "4h", unit: "/mois", label: "sessions en présentiel à Paris", icon: MapPin },
+  { val: "8", unit: "secteurs", label: "représentés pour enrichir les échanges", icon: Layers }
+];
+
+const modules = [
   {
+    id: 1,
     title: "Posture & Présence",
-    items: [
-      "Supprimer les tics de langage et parasites",
+    subtitle: "Axe I",
+    details: [
+      "Diagnostic de son potentiel de leader communicant",
+      "Équilibrage non verbal et verbal",
+      "Supprimer les tics de langage et les parasites",
       "Développer assurance et affirmation à l'oral",
-      "Posture assertive et autorité naturelle",
+      "Développer une posture assertive à l'oral",
       "Gagner en détente et résistance"
-    ]
+    ],
+    videoFallback: "https://images.unsplash.com/photo-1558222218-b7b54eede3f3?q=80&w=1000"
   },
   {
+    id: 2,
     title: "Communication & Influence",
-    items: [
+    subtitle: "Axe II",
+    details: [
+      "Gagner en charisme, clarté et leadership à l'oral",
+      "Convaincre rapidement en présentation et en réunion",
       "Structurer efficacement son discours",
-      "S'adapter à son public rapidement",
-      "Garder la maîtrise quel que soit l'enjeu",
-      "Préparation et improvisation"
-    ]
+      "Apprendre à s'adapter à son public rapidement",
+      "La nécessité d'une bonne préparation",
+      "Garder la maîtrise de son discours quel que soit l'enjeu",
+      "Savoir rebondir face aux objections"
+    ],
+    videoFallback: "https://images.unsplash.com/photo-1541844053589-346841d0b34c?q=80&w=1000"
   },
   {
+    id: 3,
     title: "Leadership & Management",
-    items: [
-      "Recadrer un collaborateur dans la détente",
-      "Fédérer ses équipes, obtenir l'engagement",
-      "Prendre toute sa place au CODIR / COMEX"
-    ]
+    subtitle: "Axe III",
+    details: [
+      "Porter la vision et la stratégie à l'oral",
+      "Recadrer un collaborateur dans la détente si besoin",
+      "Fédérer ses équipes, et obtenir l'engagement plus facilement",
+      "Prendre toute sa place au sein du CODIR/COMEX et/ou avec ses pairs",
+      "Convaincre plus efficacement sa hiérarchie, et/ou les Fonds"
+    ],
+    videoFallback: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1000"
   },
   {
+    id: 4,
     title: "Visibilité & Impact",
-    items: [
-      "Aisance face caméra / Conversationnel spontané",
-      "Media Training",
-      "Convaincre sa hiérarchie et/ou les Fonds"
-    ]
+    subtitle: "Axe IV",
+    details: [
+      "Gagner en aisance face caméra/Conversationnel spontané/Media Training"
+    ],
+    videoFallback: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000"
   }
 ];
 
 export default function ProgramDetails() {
-  return (
-    <section className="py-24" id="programme">
-      <div className="container-custom">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-          
-          <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8 }}
-          >
-            <span className="tag mb-4">Le programme</span>
-            <h2 className="font-bold text-[clamp(1.75rem,4vw,3.2rem)] uppercase leading-[1.15] mb-6">
-              Un curriculum complet,<br />100% cas réels
-            </h2>
-            <p className="text-[15px] text-gray-500 leading-relaxed mb-8">
-              Chaque session est conçue autour de vos enjeux concrets. Mises en situation adaptées et personnalisées — pas de théorie creuse, uniquement ce qui fonctionne face à votre réalité de dirigeant.
-            </p>
-            
-            <ul className="flex flex-col gap-3">
-              {[
-                "Diagnostic de votre potentiel de leader communicant",
-                "Équilibrage non verbal et verbal",
-                "Gagner en charisme, clarté et leadership à l'oral",
-                "Convaincre rapidement en présentation et en réunion",
-                "Savoir rebondir face aux objections",
-                "Porter la vision et la stratégie à l'oral",
-                "Prendre toute sa place au sein du CODIR / COMEX",
-                "Fédérer ses équipes et obtenir l'engagement",
-                "Aisance face caméra et Media Training",
-                "Convaincre sa hiérarchie et/ou les Fonds"
-              ].map((item, idx) => (
-                <li key={idx} className="flex gap-3 text-sm leading-relaxed text-brand-dark-2">
-                  <ArrowRight className="w-4 h-4 text-brand-orange shrink-0 mt-0.5" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </motion.div>
+  const [activeTab, setActiveTab] = useState(modules[0].id);
+  const active = modules.find(m => m.id === activeTab);
 
-          <motion.div 
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex flex-col gap-6"
-          >
-            {themes.map((theme, i) => (
-              <motion.div 
-                key={i}
-                whileHover={{ x: 10, backgroundColor: "#fdf8f4" }}
-                className="bg-brand-off-white border-l-4 border-brand-orange rounded-r-xl p-6 transition-all duration-300"
-              >
-                <h4 className="text-[11px] font-bold uppercase tracking-[2px] text-brand-orange mb-3">
-                  {theme.title}
-                </h4>
-                <ul className="flex flex-col gap-2">
-                  {theme.items.map((item, j) => (
-                    <li key={j} className="text-[13px] text-gray-700 flex gap-2">
-                      <span className="text-brand-orange font-bold">·</span> 
-                      {item}
-                    </li>
+  return (
+    <section id="programme" className="py-24 md:py-32 bg-brand-light text-brand-dark overflow-hidden">
+      <div className="container-custom">
+        <div className="mb-16">
+          <span className="tag mb-6 inline-block">Le Programme</span>
+          <h2 className="text-[clamp(2.5rem,4vw,3.5rem)] font-bold uppercase leading-[1.1] mb-4">
+            Un curriculum complet, <span className="text-brand-orange">100% cas réels</span>
+          </h2>
+          <p className="text-lg italic text-brand-dark-2/60">
+            Mises en situation adaptées, personnalisées — pas de théorie creuse.
+          </p>
+        </div>
+
+        {/* Horizontal tab bar */}
+        <div className="flex flex-wrap gap-3 mb-12">
+          {modules.map((mod) => (
+            <button
+              key={mod.id}
+              onClick={() => setActiveTab(mod.id)}
+              className={`relative px-6 py-4 rounded-xl font-bold text-base uppercase tracking-wide transition-all duration-300 cursor-pointer ${
+                activeTab === mod.id
+                  ? 'text-white shadow-lg bg-gradient-to-br from-brand-dark-2 via-brand-dark-3 to-brand-dark-2 border border-brand-orange/20'
+                  : 'bg-gradient-to-br from-brand-orange/[0.06] to-transparent text-brand-dark-2/60 border border-brand-orange/15 hover:border-brand-orange/30 hover:text-brand-orange shadow-sm'
+              }`}
+            >
+              {activeTab === mod.id && (
+                <motion.div
+                  layoutId="activeTab"
+                  className="absolute inset-0 bg-gradient-to-br from-brand-dark-2 via-brand-dark-3 to-brand-dark-2 border border-brand-orange/20 rounded-xl"
+                  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                  style={{ zIndex: -1 }}
+                />
+              )}
+              <span className="relative z-10 flex items-center gap-3">
+                <span className={`w-7 h-7 rounded-md flex items-center justify-center text-sm ${
+                  activeTab === mod.id ? 'bg-brand-orange text-white' : 'bg-brand-dark-2/10 text-brand-dark-2/40'
+                }`}>
+                  {mod.id}
+                </span>
+                <span className="hidden sm:inline">{mod.title}</span>
+                <span className="sm:hidden">{mod.subtitle}</span>
+              </span>
+            </button>
+          ))}
+        </div>
+
+        {/* Content panel */}
+        <div className="relative w-full bg-white rounded-2xl shadow-xl border border-brand-dark-2/5 overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.35 }}
+              className="flex flex-col lg:flex-row"
+            >
+              {/* Left — image banner */}
+              <div className="w-full lg:w-5/12 relative min-h-[250px] lg:min-h-[360px]">
+                <img
+                  src={active.videoFallback}
+                  alt={active.title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-dark-2 via-brand-dark-2/50 to-transparent" />
+                <div className="absolute bottom-6 left-8 right-8 lg:bottom-10 lg:left-10">
+                  <span className="text-brand-orange font-bold uppercase tracking-widest text-sm mb-2 block">
+                    {active.subtitle}
+                  </span>
+                  <h3 className="text-white text-3xl lg:text-4xl font-bold leading-tight">
+                    {active.title}
+                  </h3>
+                </div>
+              </div>
+
+              {/* Right — content list */}
+              <div className="w-full lg:w-7/12 px-8 py-5 lg:px-10 lg:py-6 flex flex-col justify-center">
+                <ul className="space-y-2">
+                  {active.details.map((detail, idx) => (
+                    <motion.li
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 + idx * 0.06 }}
+                      key={idx}
+                      className="flex items-start gap-4"
+                    >
+                      <span className="text-brand-orange font-bold text-xl mt-0.5 shrink-0">→</span>
+                      <span className="text-brand-dark-2/80 text-xl font-bold leading-relaxed">
+                        {detail}
+                      </span>
+                    </motion.li>
                   ))}
                 </ul>
-              </motion.div>
-            ))}
-          </motion.div>
-          
+              </div>
+            </motion.div>
+          </AnimatePresence>
         </div>
+
+        {/* ========== FORMAT ========== */}
+        <div className="mt-28" id="format">
+          <div className="max-w-2xl mb-14">
+            <span className="tag mb-4">Le format</span>
+            <h2 className="text-[clamp(2rem,3.5vw,3rem)] font-bold uppercase leading-tight">
+              Exigeant par design. <span className="text-brand-orange">Efficace par nature.</span>
+            </h2>
+          </div>
+
+          {/* 4 metrics — open layout, no boxes */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-8 mb-16">
+            {features.map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className={`relative ${index < 3 ? 'lg:border-r lg:border-brand-dark-2/10 lg:pr-8' : ''}`}
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-full bg-brand-orange/10 flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-brand-orange" />
+                    </div>
+                    <div className="flex items-baseline gap-1.5">
+                      <span className="text-[clamp(2.5rem,4vw,3.5rem)] font-bold text-brand-dark-2 leading-none">{item.val}</span>
+                      <span className="text-lg font-bold text-brand-dark-2/30 uppercase tracking-wide">{item.unit}</span>
+                    </div>
+                  </div>
+                  <p className="text-brand-dark-2/50 text-lg leading-relaxed">{item.label}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Price block with video background */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative rounded-xl p-12 lg:p-16 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10 overflow-hidden"
+          >
+            <div className="absolute inset-0 z-0">
+              <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover bg-brand-dark">
+                <source src="https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/bandeau-oeil.mp4" type="video/mp4" />
+              </video>
+              <div className="absolute inset-0 bg-brand-dark/40" />
+            </div>
+            <div className="relative z-10">
+              <h3 className="text-white font-bold text-2xl uppercase mb-2">Investissement 2026/27</h3>
+              <p className="text-white/75 text-lg">Adhésion annuelle · Engagement 10 mois</p>
+              <p className="text-white/60 text-base mt-2">N° formation : 11 92 29538 92 · Île-de-France · Éligible financement entreprise</p>
+            </div>
+            <div className="text-left lg:text-center shrink-0 relative z-10">
+              <div className="text-[clamp(3rem,5vw,4rem)] font-bold text-brand-orange leading-none">450 €</div>
+              <p className="text-white/70 text-lg mt-1">net de taxe / mois</p>
+            </div>
+            <div className="relative z-10 bg-brand-orange/10 border border-brand-orange/25 rounded-lg p-6 text-center shrink-0 min-w-[220px]">
+              <span className="inline-block bg-brand-orange text-white text-sm font-bold uppercase tracking-wider px-4 py-1.5 rounded-full mb-3">Places disponibles</span>
+              <h4 className="text-white font-bold uppercase text-xl mb-1">Cercle N°4 — 2026</h4>
+              <p className="text-white/50 text-base mb-4">10 dirigeants maximum</p>
+              <a href="#inscription" className="btn-orange w-full justify-center text-sm py-3">Réserver un entretien →</a>
+            </div>
+          </motion.div>
+        </div>
+
       </div>
     </section>
   );

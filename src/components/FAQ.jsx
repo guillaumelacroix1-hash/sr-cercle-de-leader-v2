@@ -5,15 +5,15 @@ import { Plus, Minus } from 'lucide-react';
 const faqs = [
   {
     q: "Ce cercle est-il fait pour moi ?",
-    a: "Si vous êtes dirigeant(e), membre d'un COMEX ou CODIR, fondateur(rice) de startup, et que vous souhaitez démultiplier votre impact managérial et asseoir votre autorité naturelle sans forcer, ce Cercle est pour vous."
+    a: "Si vous êtes dirigeant(e), membre d'un COMEX ou CODIR, fondateur(rice), et que vous souhaitez gagner en impact, en charisme et en leadership à l'oral, ce Cercle est fait pour vous."
   },
   {
     q: "Quelle est la part de théorie vs. pratique ?",
-    a: "Le programme est 100% axé sur la pratique. Nous partons de VOS cas réels (préparation de CA, intervention en plénière, levée de fonds, conflits). Vous repartez à chaque fois avec des clés applicables dès le lendemain."
+    a: "Le programme est 100% axé sur la pratique. Chaque session est conçue autour de vos enjeux concrets : mises en situation adaptées et personnalisées. Pas de théorie creuse, uniquement ce qui fonctionne face à votre réalité de dirigeant."
   },
   {
     q: "Où se déroulent les séances ?",
-    a: "En présentiel au Studio Étoile (Paris, M° Charles de Gaulle – Étoile) et à Boulogne. Le lieu est choisi pour garantir confidentialité et confort de travail."
+    a: "En présentiel à Paris et à Boulogne-Billancourt, dans un espace confidentiel dédié. Le lieu est choisi pour garantir la confidentialité et le confort de travail."
   },
   {
     q: "Le programme est-il finançable par l'entreprise ?",
@@ -42,7 +42,7 @@ function FAQItem({ item, isOpen, onClick }) {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <p className="pb-6 text-gray-600 text-[15px] leading-relaxed">
+            <p className="pb-6 text-gray-600 text-lg leading-relaxed">
               {item.a}
             </p>
           </motion.div>
@@ -56,16 +56,16 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="bg-brand-off-white py-24" id="faq">
+    <section className="bg-white py-24 relative overflow-hidden" id="faq">
       <div className="container-custom max-w-[800px]">
-        <div className="text-center mb-16">
+        <div className="mb-14">
           <span className="tag">Questions fréquentes</span>
           <h2 className="font-bold text-[clamp(1.75rem,3.5vw,2.75rem)] uppercase leading-[1.15]">
-            Tout ce que vous devez savoir
+            Tout ce qu'il faut savoir <span className="text-brand-orange">avant de postuler</span>
           </h2>
         </div>
 
-        <div className="bg-white rounded-2xl p-6 md:p-10 shadow-sm border border-gray-200">
+        <div className="bg-white rounded-xl p-6 md:p-10 shadow-sm border border-gray-200">
           {faqs.map((item, idx) => (
             <FAQItem 
               key={idx} 

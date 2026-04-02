@@ -1,98 +1,107 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Quote } from 'lucide-react';
 
 const testimonials = [
   {
-    text: "Stéphanie est tout simplement brillante ! Sa méthode de coaching est d'une intelligence et d'une efficacité rare. La justesse de son analyse de personnalité en quelques minutes est tout simplement impressionnante. Son feedback sur les éléments de langage verbaux et corporels est particulièrement puissant, fin et bien choisi. Les exercices qu'elle propose permettent de transformer sa posture à l'oral en créant des déclics comportementaux.",
+    text: "Stéphanie est tout simplement brillante ! Sa méthode de coaching est d'une intelligence et d'une efficacité rare. La justesse de son analyse de personnalité en quelques minutes est tout simplement impressionnante. Son feedback sur les éléments de langage verbaux et corporels est particulièrement puissant, fin et bien choisi.",
     author: "Lina",
-    role: "Programme Executive EDHEC",
-    isBig: true
+    role: "Programme Executive EDHEC"
   },
   {
     text: "Les résultats dépassent les objectifs que nous avions visés. Je recommande vivement les compétences et les qualités humaines d'écoute, d'empathie et de rigueur de Stéphanie Raphaël.",
     author: "Anna Altea",
-    role: "DRH — Institut Gustave Roussy",
-    isBig: false
+    role: "DRH — Institut Gustave Roussy"
   },
   {
     text: "Résultats clairement visibles en fin de journée — Succès total.",
     author: "Daniel Estève",
-    role: "Directeur de recherche au CEA — Académie des Sciences",
-    isBig: false
+    role: "Directeur de recherche au CEA — Académie des Sciences"
   },
   {
     text: "Mon expérience de coaching m'a littéralement transformée. J'ai gagné en confiance, en assertivité et en aisance dans mon expression grâce à sa méthode ultra efficace. Aujourd'hui ma confiance en moi est solide.",
     author: "Sarah",
-    role: "Dirigeante",
-    isBig: false
+    role: "Dirigeante"
   },
   {
     text: "Les exercices sont pratico-pratiques. Les progrès sont impressionnants et visibles au fur et à mesure. Je suis impressionné, c'est bluffant !",
     author: "Medhi",
-    role: "Cadre dirigeant",
-    isBig: false
+    role: "Cadre dirigeant"
   },
   {
     text: "Coach exceptionnelle, qui en si peu de temps arrive à nous faire gagner en impact et nous donner confiance en nous.",
     author: "Vincent",
-    role: "Dirigeant",
-    isBig: false
+    role: "Dirigeant"
   },
   {
     text: "Ses interventions s'appuient sur un mélange de lucidité et bienveillance implacables, nous poussant hors de notre zone de confort tout en nous fournissant des outils concrets pour améliorer notre posture et notre impact.",
     author: "Lydie",
-    role: "Advanced Leadership Program EDHEC",
-    isBig: false
+    role: "Advanced Leadership Program EDHEC"
   },
   {
     text: "Certains participants ont souligné être définitivement changés quant à leur capacité à récupérer leur confiance en eux.",
     author: "Prof. Agnès Bernet",
-    role: "Directrice de recherche — Université Claude Bernard",
-    isBig: false
+    role: "Directrice de recherche — Université Claude Bernard"
   },
   {
     text: "La marge de progression a été rapidement identifiée pour chacun d'entre nous — la progression est réelle et pour certains vraiment spectaculaire.",
     author: "Maud",
-    role: "Dirigeante",
-    isBig: false
+    role: "Dirigeante"
   }
 ];
 
+// Duplicate for seamless loop
+const loopTestimonials = [...testimonials, ...testimonials];
+
 export default function Testimonials() {
   return (
-    <section className="bg-brand-off-white py-24" id="temoignages">
-      <div className="container-custom">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="tag">Ils témoignent</span>
-          <h2 className="font-bold text-[clamp(1.75rem,4vw,3.2rem)] uppercase leading-[1.15]">
-            Ce que disent ceux<br />qui ont franchi le cap
+    <section id="temoignages" className="bg-brand-light py-24 md:py-32 overflow-hidden border-t border-brand-dark-2/5 relative">
+      <div className="absolute top-1/3 left-1/4 w-[700px] h-[700px] bg-brand-orange rounded-full blur-[150px] opacity-[0.12] pointer-events-none" />
+      <div className="container-custom mb-8 md:mb-12">
+        <div className="max-w-2xl">
+          <span className="tag mb-4 inline-block">Ils témoignent</span>
+          <h2 className="text-[clamp(2.5rem,4vw,3.5rem)] font-bold uppercase leading-tight text-brand-dark-2">
+            Ce que disent ceux qui ont <span className="text-brand-orange">franchi le cap</span>
           </h2>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {testimonials.map((t, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.05, duration: 0.5 }}
-              className={`flex flex-col p-8 rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 ${
-                t.isBig ? 'lg:col-span-2 bg-brand-dark-2 text-white' : 'bg-white border border-gray-200'
-              }`}
-            >
-              <div className="font-serif text-5xl text-brand-orange leading-[0.5] mb-4">"</div>
-              <p className={`flex-1 italic text-[14px] leading-relaxed mb-8 ${t.isBig ? 'text-white/80' : 'text-gray-700'}`}>
-                {t.text}
-              </p>
-              <div>
-                <p className="font-bold text-[14px]">{t.author}</p>
-                <p className={`text-[12px] mt-1 ${t.isBig ? 'text-white/50' : 'text-gray-500'}`}>{t.role}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
       </div>
+
+      <div className="relative w-full flex overflow-hidden group pb-10">
+        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-48 bg-gradient-to-r from-brand-light to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-48 bg-gradient-to-l from-brand-light to-transparent z-10 pointer-events-none" />
+
+        <motion.div
+          animate={{ x: [0, -2500] }}
+          transition={{
+            x: {
+              repeat: Infinity,
+              repeatType: "loop",
+              duration: 40,
+              ease: "linear",
+            },
+          }}
+          className="flex gap-6 md:gap-10 px-10 items-stretch"
+        >
+          {loopTestimonials.map((item, index) => (
+            <div 
+              key={index}
+              className="w-[300px] md:w-[450px] flex-shrink-0 bg-white p-8 md:p-12 rounded-3xl shadow-xl shadow-brand-dark-2/5 border border-brand-dark-2/5 flex flex-col justify-between"
+            >
+              <div>
+                <Quote className="w-10 h-10 text-brand-orange/20 mb-6" />
+                <p className="text-brand-dark-2/80 text-lg leading-relaxed italic mb-8">
+                  "{item.text}"
+                </p>
+              </div>
+              <div className="border-t border-brand-dark-2/5 pt-6 mt-auto">
+                <p className="font-bold text-brand-dark-2 text-[15px] uppercase tracking-wider">{item.author}</p>
+                <p className="text-brand-dark-2/50 text-[13px]">{item.role}</p>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
     </section>
   );
 }

@@ -3,10 +3,8 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import InfiniteLogos from './components/InfiniteLogos';
 import ProblemSolution from './components/ProblemSolution';
-import VideoSection from './components/VideoSection';
 import Benefits from './components/Benefits';
 import ProgramDetails from './components/ProgramDetails';
-import FormatPrice from './components/FormatPrice';
 import About from './components/About';
 import Testimonials from './components/Testimonials';
 import LeadForm from './components/LeadForm';
@@ -19,12 +17,10 @@ function App() {
       <Header />
       <main>
         <Hero />
-        <ProblemSolution />
         <InfiniteLogos />
-        <VideoSection />
+        <ProblemSolution />
         <Benefits />
         <ProgramDetails />
-        <FormatPrice />
         <About />
         <Testimonials />
         <LeadForm />

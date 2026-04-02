@@ -14,22 +14,22 @@
 @font-face {
   font-family: 'ArialNarrow';
   src: url('https://www.methodestephanieraphael.com/wp-content/uploads/2025/05/arialnarrow.ttf') format('truetype');
-  font-weight: 400; font-style: normal;
+  font-weight: 400; font-style: normal; font-display: swap;
 }
 @font-face {
   font-family: 'ArialNarrow';
   src: url('https://www.methodestephanieraphael.com/wp-content/uploads/2025/05/Arial-Narrow-Bold.ttf') format('truetype');
-  font-weight: 700; font-style: normal;
+  font-weight: 700; font-style: normal; font-display: swap;
 }
 @font-face {
   font-family: 'ArialNarrow';
   src: url('https://www.methodestephanieraphael.com/wp-content/uploads/2025/05/arialnarrow_italic.ttf') format('truetype');
-  font-weight: 400; font-style: italic;
+  font-weight: 400; font-style: italic; font-display: swap;
 }
 @font-face {
   font-family: 'ArialNarrow';
   src: url('https://www.methodestephanieraphael.com/wp-content/uploads/2025/05/arialnarrow_bolditalic.ttf') format('truetype');
-  font-weight: 700; font-style: italic;
+  font-weight: 700; font-style: italic; font-display: swap;
 }
 
 @layer base {
@@ -41,6 +41,13 @@
     color: var(--color-brand-dark-2);
     background-color: var(--color-brand-light);
     -webkit-font-smoothing: antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand-orange);
+    outline-offset: 2px;
+  }
+  :focus:not(:focus-visible) {
+    outline: none;
   }
 }
 
@@ -54,7 +61,7 @@
   }
   .tag {
     display: inline-block;
-    font-size: 11px;
+    font-size: 14px;
     font-weight: 700;
     letter-spacing: 3px;
     text-transform: uppercase;
@@ -73,8 +80,8 @@
     text-transform: uppercase;
     letter-spacing: 1.5px;
     cursor: pointer;
-    transition-property: all;
-    transition-duration: 300ms;
+    transition-property: background-color, border-color, color, transform, box-shadow;
+    transition-duration: 220ms;
     border: 2px solid transparent;
     background-color: var(--color-brand-orange);
     color: white;
@@ -96,8 +103,8 @@
     text-transform: uppercase;
     letter-spacing: 1.5px;
     cursor: pointer;
-    transition-property: all;
-    transition-duration: 300ms;
+    transition-property: background-color, border-color, color, transform, box-shadow;
+    transition-duration: 220ms;
     border: 2px solid rgba(255,255,255,0.5);
     background-color: transparent;
     color: white;

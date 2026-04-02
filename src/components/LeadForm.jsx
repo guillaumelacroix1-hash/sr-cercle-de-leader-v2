@@ -1,114 +1,96 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
+import { ShieldCheck, Users, Clock } from 'lucide-react';
+
+const CALENDLY_URL = 'https://calendly.com/stephanie-raphael/le-cercle-des-leaders-communicants-echanges';
 
 export default function LeadForm() {
-  const [formData, setFormData] = useState({
-    prenom: '', nom: '', fonction: '', entreprise: '', linkedin: '', email: '', telephone: ''
-  });
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Implementation for sending the form
-    alert("Votre demande a été envoyée. L'équipe Méthode Stéphanie Raphaël vous recontactera rapidement.");
-  };
-
   return (
-    <section className="py-24" id="inscription">
-      <div className="container-custom">
-        <div className="bg-brand-dark-2 rounded-2xl overflow-hidden shadow-2xl flex flex-col lg:flex-row">
-          
-          {/* Form Context / Pitch */}
-          <div className="p-10 lg:p-14 lg:w-5/12 bg-gradient-to-br from-brand-dark-3 to-brand-dark text-white relative">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange rounded-full blur-[100px] opacity-10 pointer-events-none" />
-            
-            <span className="tag text-brand-orange/80">Candidature</span>
-            <h2 className="font-bold text-[clamp(1.75rem,3vw,2.5rem)] uppercase leading-[1.15] mb-6">
-              Rejoindre le prochain cercle
-            </h2>
-            <p className="text-[14px] text-white/70 leading-relaxed mb-8">
-              La sélection s'effectue sur dossier et entretien afin de garantir la qualité et l'homogénéité du groupe.
-            </p>
+    <section id="inscription" className="relative py-24 md:py-32 overflow-hidden">
 
-            <ul className="flex flex-col gap-5 text-[13px] text-white/80 font-bold">
-              <li className="flex gap-3">
-                <span className="text-brand-orange flex-shrink-0">1.</span>
-                <span>Remplissez le formulaire de pré-candidature ci-contre.</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-brand-orange flex-shrink-0">2.</span>
-                <span>Un appel individuel (15 min) sera planifié pour valider l'adéquation.</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-brand-orange flex-shrink-0">3.</span>
-                <span>Validation du financement (Entreprise ou OPCO).</span>
-              </li>
-            </ul>
+      {/* Background */}
+      <div className="absolute inset-0 bg-brand-dark-2" />
 
-            <div className="mt-12 pt-8 border-t border-white/10">
-              <p className="text-[11px] font-bold uppercase tracking-[2px] text-brand-orange mb-2">Prochaine Rentée</p>
-              <p className="font-bold text-2xl">Mardi 22 Septembre 2026</p>
-              <p className="text-[12px] text-white/50 mt-1 uppercase tracking-wider">Cercle N°4 (Reste 10 places)</p>
+      <div className="container-custom relative z-10 max-w-[1280px]">
+
+        {/* Header — centré */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="tag mb-4">Processus de sélection</span>
+          <h2 className="text-[clamp(2rem,4vw,3.2rem)] font-bold uppercase leading-tight text-white mb-4">
+            On ne prend pas <span className="text-brand-orange">tout le monde.</span>
+          </h2>
+          <p className="text-white/50 text-lg leading-relaxed">
+            Le Cercle réunit 10 dirigeants triés sur le volet. Pour garantir l'excellence du groupe,
+            chaque candidature passe par un entretien de sélection avec Stéphanie.
+          </p>
+        </div>
+
+        {/* 3 steps — centré, pleine largeur */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto mb-16">
+          <div className="flex flex-col items-center text-center gap-4 p-6">
+            <div className="w-14 h-14 rounded-full bg-brand-orange flex items-center justify-center">
+              <span className="text-white font-bold text-xl">1</span>
+            </div>
+            <div>
+              <p className="text-white font-bold text-xl mb-1">Réservez un créneau</p>
+              <p className="text-white/35 text-base">Directement ci-dessous</p>
             </div>
           </div>
-
-          {/* Actual Form */}
-          <div className="p-10 lg:p-14 lg:w-7/12 bg-white">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-[1px] text-gray-500 mb-2">Prénom *</label>
-                  <input required type="text" name="prenom" value={formData.prenom} onChange={handleChange} className="w-full bg-brand-off-white border-none rounded-md px-4 py-3 text-[14px] focus:ring-2 focus:ring-brand-orange outline-none transition-shadow" placeholder="Jean" />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-[1px] text-gray-500 mb-2">Nom *</label>
-                  <input required type="text" name="nom" value={formData.nom} onChange={handleChange} className="w-full bg-brand-off-white border-none rounded-md px-4 py-3 text-[14px] focus:ring-2 focus:ring-brand-orange outline-none transition-shadow" placeholder="Dupont" />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-[11px] font-bold uppercase tracking-[1px] text-gray-500 mb-2">Fonction actuelle *</label>
-                <input required type="text" name="fonction" value={formData.fonction} onChange={handleChange} className="w-full bg-brand-off-white border-none rounded-md px-4 py-3 text-[14px] focus:ring-2 focus:ring-brand-orange outline-none transition-shadow" placeholder="CEO, Directeur Marketing..." />
-              </div>
-
-              <div>
-                <label className="block text-[11px] font-bold uppercase tracking-[1px] text-gray-500 mb-2">Entreprise *</label>
-                <input required type="text" name="entreprise" value={formData.entreprise} onChange={handleChange} className="w-full bg-brand-off-white border-none rounded-md px-4 py-3 text-[14px] focus:ring-2 focus:ring-brand-orange outline-none transition-shadow" placeholder="Nom de l'entreprise" />
-              </div>
-
-              <div>
-                <label className="block text-[11px] font-bold uppercase tracking-[1px] text-gray-500 mb-2">Profil LinkedIn *</label>
-                <input required type="url" name="linkedin" value={formData.linkedin} onChange={handleChange} className="w-full bg-brand-off-white border-none rounded-md px-4 py-3 text-[14px] focus:ring-2 focus:ring-brand-orange outline-none transition-shadow" placeholder="https://linkedin.com/in/..." />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-[1px] text-gray-500 mb-2">Email Pro *</label>
-                  <input required type="email" name="email" value={formData.email} onChange={handleChange} className="w-full bg-brand-off-white border-none rounded-md px-4 py-3 text-[14px] focus:ring-2 focus:ring-brand-orange outline-none transition-shadow" placeholder="jean.dupont@entreprise.com" />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-[1px] text-gray-500 mb-2">Téléphone *</label>
-                  <input required type="tel" name="telephone" value={formData.telephone} onChange={handleChange} className="w-full bg-brand-off-white border-none rounded-md px-4 py-3 text-[14px] focus:ring-2 focus:ring-brand-orange outline-none transition-shadow" placeholder="+33 6..." />
-                </div>
-              </div>
-
-              <div className="pt-4">
-                <motion.button 
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  type="submit" 
-                  className="w-full btn-orange justify-center py-4 text-[15px]"
-                >
-                  Envoyer ma candidature
-                </motion.button>
-              </div>
-            </form>
+          <div className="flex flex-col items-center text-center gap-4 p-6">
+            <div className="w-14 h-14 rounded-full bg-brand-orange/20 border-2 border-brand-orange/40 flex items-center justify-center">
+              <span className="text-brand-orange font-bold text-xl">2</span>
+            </div>
+            <div>
+              <p className="text-white font-bold text-xl mb-1">Entretien de sélection</p>
+              <p className="text-white/35 text-base">45 min · Sans engagement</p>
+            </div>
           </div>
-
+          <div className="flex flex-col items-center text-center gap-4 p-6">
+            <div className="w-14 h-14 rounded-full bg-white/5 border-2 border-white/10 flex items-center justify-center">
+              <span className="text-white/30 font-bold text-xl">3</span>
+            </div>
+            <div>
+              <p className="text-white/50 font-bold text-xl mb-1">Intégration au Cercle</p>
+              <p className="text-white/25 text-base">Si profil retenu</p>
+            </div>
+          </div>
         </div>
+
+        {/* Calendly — iframe direct, pleine largeur */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="rounded-xl overflow-hidden shadow-2xl bg-white"
+        >
+          <iframe
+            src={`${CALENDLY_URL}?hide_gdpr_banner=1&background_color=ffffff&text_color=1b1f29&primary_color=f49619`}
+            title="Réserver un entretien avec Stéphanie Raphaël"
+            width="100%"
+            height="800"
+            frameBorder="0"
+            scrolling="no"
+            className="block w-full border-none"
+            style={{ colorScheme: 'light', background: 'white' }}
+          />
+        </motion.div>
+
+        {/* Trust signals — inline under calendly */}
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-14 mt-12">
+          <div className="flex items-center gap-4 text-white/70 text-lg">
+            <Clock className="w-7 h-7 text-brand-orange shrink-0" />
+            <span>45 minutes · Gratuit · Sans engagement</span>
+          </div>
+          <div className="flex items-center gap-4 text-white/70 text-lg">
+            <ShieldCheck className="w-7 h-7 text-brand-orange shrink-0" />
+            <span>Confidentialité absolue garantie</span>
+          </div>
+          <div className="flex items-center gap-4 text-white/70 text-lg">
+            <Users className="w-7 h-7 text-brand-orange shrink-0" />
+            <span>10 places maximum par Cercle</span>
+          </div>
+        </div>
+
       </div>
     </section>
   );

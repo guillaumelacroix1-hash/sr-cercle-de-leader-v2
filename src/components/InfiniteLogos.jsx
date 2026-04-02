@@ -2,50 +2,71 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const logos = [
-  { name: 'EADS', src: 'https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-eads-300x300.jpg' },
-  { name: 'Total', src: 'https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-total-300x300.jpg' },
-  { name: 'Schneider Electric', src: 'https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-schneider-300x300.jpg' },
-  { name: 'EDHEC', src: 'https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-edhec-300x300.jpg' },
-  { name: 'Paris Dauphine', src: 'https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-dauphine-psl-300x300.jpg' },
-  { name: 'Crédit Agricole', src: 'https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-CA-300x300.jpg' },
-  { name: 'La Poste', src: 'https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-laposte-300x300.jpg' },
-  { name: 'INRIA', src: 'https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-inria-300x300.jpg' },
-  { name: 'Gustave Roussy', src: 'https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-G-roussy-300x300.jpg' },
-  { name: 'Amundi', src: 'https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-amundi-300x300.jpg' },
+  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-eads-300x300.jpg", alt: "EADS" },
+  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-total-300x300.jpg", alt: "TotalEnergies" },
+  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-schneider-300x300.jpg", alt: "Schneider Electric" },
+  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-edhec-300x300.jpg", alt: "EDHEC" },
+  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-dauphine-psl-300x300.jpg", alt: "Paris Dauphine PSL" },
+  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-CA-300x300.jpg", alt: "Crédit Agricole" },
+  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-laposte-300x300.jpg", alt: "La Poste" },
+  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-inria-300x300.jpg", alt: "INRIA" },
+  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-G-roussy-300x300.jpg", alt: "Gustave Roussy" },
+  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-amundi-300x300.jpg", alt: "Amundi" },
+  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-malakoff-300x300.jpg", alt: "Malakoff Humanis" },
+  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-valoourec-300x300.jpg", alt: "Vallourec" },
+  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-saipem-300x300.jpg", alt: "Saipem" },
+  { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-SC-Po-300x300.jpg", alt: "Sciences Po" },
 ];
+
+const doubledLogos = [...logos, ...logos];
 
 export default function InfiniteLogos() {
   return (
-    <section className="bg-brand-off-white py-12 border-y border-brand-dark/10 overflow-hidden">
-      <div className="container-custom">
-        <p className="text-[11px] font-bold tracking-[3px] uppercase text-gray-500 text-center mb-8">
-          Ils font confiance à Stéphanie Raphaël
-        </p>
-        
-        {/* Infinite scrolling track */}
-        <div className="relative w-full flex overflow-hidden">
-          <motion.div
-            className="flex whitespace-nowrap gap-12 sm:gap-20 min-w-max items-center"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{
-              ease: "linear",
-              duration: 35,
+    <div className="relative bg-brand-dark border-t border-white/10 py-5 overflow-hidden">
+      {/* Label */}
+      <p className="text-center text-[10px] md:text-[11px] font-bold uppercase tracking-[3px] text-white/60 mb-4">
+        Ils font confiance à Stéphanie Raphaël
+      </p>
+
+      {/* Marquee container */}
+      <div className="relative w-full flex overflow-hidden">
+        {/* Fade edges */}
+        <div className="absolute left-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-r from-brand-dark to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-l from-brand-dark to-transparent z-10 pointer-events-none" />
+
+        <motion.div
+          className="flex items-center shrink-0"
+          animate={{ x: ['0%', '-50%'] }}
+          transition={{
+            x: {
               repeat: Infinity,
-            }}
-          >
-            {/* Array doubled for infinite effect */}
-            {[...logos, ...logos].map((logo, index) => (
-              <div key={index} className="flex-shrink-0">
-                <img
-                  src={logo.src}
-                  alt={logo.name}
-                  className="h-10 w-10 sm:h-12 sm:w-12 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-                />
-              </div>
-            ))}
-          </motion.div>
-        </div>
+              repeatType: 'loop',
+              duration: 30,
+              ease: 'linear',
+            },
+          }}
+          style={{ willChange: 'transform' }}
+        >
+          {doubledLogos.map((logo, i) => (
+            <div
+              key={i}
+              className="shrink-0 w-[100px] h-[60px] md:w-[140px] md:h-[80px] overflow-hidden mx-3 md:mx-5 flex items-center justify-center"
+            >
+              <img
+                src={logo.src}
+                alt={logo.alt}
+                loading="lazy"
+                className="w-full h-full object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
+                style={{
+                  filter: 'invert(1) brightness(2)',
+                  mixBlendMode: 'screen',
+                  transform: 'scale(1.7)',
+                }}
+              />
+            </div>
+          ))}
+        </motion.div>
       </div>
-    </section>
+    </div>
   );
 }

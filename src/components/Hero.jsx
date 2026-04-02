@@ -1,122 +1,222 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const circles = [
+  { id: 1, status: "Complet", desc: "Février 2025", active: false },
+  { id: 2, status: "Complet", desc: "Avril 2025", active: false },
+  { id: 3, status: "Complet", desc: "Septembre 2025", active: false },
+  { id: 4, status: "Inscriptions ouvertes", desc: "2026", active: true },
+];
+
+const RING_SIZE = 250;
+const STROKE = 5;
+const RADIUS = (RING_SIZE - STROKE) / 2;
+const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+const CYCLE_DURATION = 16000; // 16s pour un tour complet (4s par quart)
+const STEP_DURATION = CYCLE_DURATION / circles.length;
+
+function CircleSlider() {
+  const [progress, setProgress] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    let animFrame;
+    let start = null;
+
+    const tick = (timestamp) => {
+      if (!start) start = timestamp;
+      const elapsed = (timestamp - start) % CYCLE_DURATION;
+      const pct = (elapsed / CYCLE_DURATION) * 100;
+      setProgress(pct);
+
+      const idx = Math.min(Math.floor(elapsed / STEP_DURATION), circles.length - 1);
+      setCurrentIndex(idx);
+
+      animFrame = requestAnimationFrame(tick);
+    };
+
+    animFrame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(animFrame);
+  }, []);
+
+  const current = circles[currentIndex];
+  const offset = CIRCUMFERENCE - (progress / 100) * CIRCUMFERENCE;
+  const isActive = current.active;
+
+  return (
+    <div className="relative w-full max-w-[280px] ml-auto mt-16 lg:mt-0 flex items-center justify-center">
+
+      {/* Glow behind when active */}
+      <motion.div
+        animate={{ opacity: isActive ? 0.3 : 0 }}
+        transition={{ duration: 0.8 }}
+        className="absolute w-[260px] h-[260px] rounded-full bg-brand-orange blur-[60px] pointer-events-none"
+      />
+
+      {/* SVG ring */}
+      <svg width={RING_SIZE} height={RING_SIZE} className="relative z-10">
+        {/* Track */}
+        <circle
+          cx={RING_SIZE / 2}
+          cy={RING_SIZE / 2}
+          r={RADIUS}
+          fill="none"
+          stroke="rgba(255,255,255,0.08)"
+          strokeWidth={STROKE}
+        />
+        {/* Quarter marks */}
+        {[0, 1, 2, 3].map((i) => {
+          const angle = (i / 4) * 360 - 90;
+          const rad = (angle * Math.PI) / 180;
+          const x = RING_SIZE / 2 + RADIUS * Math.cos(rad);
+          const y = RING_SIZE / 2 + RADIUS * Math.sin(rad);
+          return (
+            <circle
+              key={i}
+              cx={x}
+              cy={y}
+              r={3}
+              fill={currentIndex >= i ? (circles[i].active ? "#f49619" : "rgba(255,255,255,0.4)") : "rgba(255,255,255,0.15)"}
+            />
+          );
+        })}
+        {/* Continuous progress arc */}
+        <circle
+          cx={RING_SIZE / 2}
+          cy={RING_SIZE / 2}
+          r={RADIUS}
+          fill="none"
+          stroke={isActive ? "#f49619" : "rgba(255,255,255,0.35)"}
+          strokeWidth={STROKE}
+          strokeLinecap="round"
+          strokeDasharray={CIRCUMFERENCE}
+          strokeDashoffset={offset}
+          style={{
+            transform: "rotate(-90deg)",
+            transformOrigin: "center",
+            transition: "stroke 0.5s ease",
+          }}
+        />
+      </svg>
+
+      {/* Glass circle center */}
+      <div className="absolute inset-0 z-20 flex items-center justify-center">
+        <motion.div
+          animate={{
+            backgroundColor: isActive ? "rgba(244,150,25,0.15)" : "rgba(255,255,255,0.05)",
+            borderColor: isActive ? "rgba(244,150,25,0.3)" : "rgba(255,255,255,0.1)",
+          }}
+          transition={{ duration: 0.8 }}
+          className="w-[200px] h-[200px] rounded-full backdrop-blur-md border flex items-center justify-center"
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.85 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="text-center px-4"
+            >
+              <span className={`text-[9px] uppercase font-bold tracking-[2px] block mb-2 ${
+                isActive ? 'text-brand-orange' : 'text-white/40'
+              }`}>
+                Cercle
+              </span>
+              <h3 className="text-white text-4xl font-bold leading-none mb-1">
+                N°{current.id}
+              </h3>
+              <p className="text-white/50 text-sm mb-3">{current.desc}</p>
+              <span className={`inline-block px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider rounded-full ${
+                isActive
+                  ? 'bg-brand-orange text-white shadow-[0_0_20px_rgba(244,150,25,0.4)]'
+                  : 'bg-white/10 text-white/50'
+              }`}>
+                {current.status}
+              </span>
+            </motion.div>
+          </AnimatePresence>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
 
 export default function Hero() {
   return (
-    <section className="relative h-screen min-h-[640px] flex items-center overflow-hidden text-white">
-      {/* Background Video */}
-      <video 
-        className="absolute inset-0 w-full h-full object-cover z-0"
-        autoPlay muted loop playsInline
-      >
-        <source src="https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/bandeau-les-cercles-methode-Stephanie-Raphael.mp4" type="video/mp4" />
-      </video>
-      
-      {/* Overlay */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-r from-brand-dark/90 via-brand-dark/70 to-brand-dark/40" />
-      
-      <div className="container-custom relative z-20 w-full pb-20 pt-10">
-        <div className="max-w-[700px]">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="inline-flex items-center gap-2 bg-brand-orange/15 border border-brand-orange/40 text-brand-orange px-4 py-1.5 rounded-full text-[11px] font-bold tracking-[2px] uppercase mb-7"
-          >
-            <span className="text-sm">★</span> Cercles N°1 · N°2 · N°3 — Complets
-          </motion.div>
-          
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
-            className="font-bold text-[clamp(2.5rem,6vw,5rem)] uppercase leading-[1.05] tracking-tight mb-4"
-          >
-            Les Cercles de<br/>LEADERS <span className="text-brand-orange block">Communicants</span>
-          </motion.h1>
-          
-          <motion.p 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-            className="text-[clamp(1rem,2vw,1.375rem)] italic text-white/75 mb-10 leading-relaxed tracking-wide"
-          >
-            Cultivez votre puissance.
-          </motion.p>
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.45, ease: "easeOut" }}
-            className="flex flex-wrap gap-4 mb-12"
-          >
-            <a href="#inscription" className="btn-orange">
-              Candidater au Cercle N°4 →
-            </a>
-            <a href="#programme" className="btn-white-outline">
-              Découvrir le programme
-            </a>
-          </motion.div>
-          
-          <motion.div 
-            initial={{ opacity: 0, scaleX: 0 }}
-            animate={{ opacity: 1, scaleX: 1 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="w-16 h-0.5 bg-brand-orange mb-8 origin-left"
-          />
-          
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.75 }}
-            className="flex flex-wrap gap-8 md:gap-12"
-          >
-            <div>
-              <span className="font-bold text-4xl text-brand-orange leading-none block mb-1">17</span>
-              <span className="text-[11px] text-white/50 uppercase tracking-[1.5px]">ans d'expérience</span>
-            </div>
-            <div>
-              <span className="font-bold text-4xl text-brand-orange leading-none block mb-1">3</span>
-              <span className="text-[11px] text-white/50 uppercase tracking-[1.5px]">Cercles complets</span>
-            </div>
-            <div>
-              <span className="font-bold text-4xl text-brand-orange leading-none block mb-1">100%</span>
-              <span className="text-[11px] text-white/50 uppercase tracking-[1.5px]">Satisfaction EDHEC 2023</span>
-            </div>
-          </motion.div>
-        </div>
+    <section className="relative min-h-[85svh] flex items-center pt-24 pb-12 overflow-hidden bg-brand-dark">
+      {/* Video Background */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover opacity-80 scale-105 bg-brand-dark"
+        >
+          <source src="https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/bandeau-les-cercles-methode-Stephanie-Raphael.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/95 via-brand-dark/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-transparent to-transparent" />
       </div>
 
-      {/* Hero Aside / Availability Card */}
-      <motion.div 
-        initial={{ opacity: 0, x: 100 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-        className="hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-brand-dark/80 backdrop-blur-xl border-l border-white/10 p-8 w-[320px]"
-      >
-        <p className="text-[11px] font-bold tracking-[2px] uppercase text-white/40 mb-5">État des Cercles</p>
-        
-        <div className="flex justify-between items-center py-3 border-b border-white/10 text-[13px] text-white/80 font-bold">
-          <span>Cercle N°1 — Fév. 2025</span>
-          <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-red-500/15 text-red-400 border border-red-500/30">Complet</span>
+      <div className="container-custom relative z-10 w-full">
+        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-20">
+          
+          {/* Left Text Block */}
+          <motion.div 
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="w-full lg:w-3/5 text-left"
+          >
+            <motion.span 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
+              className="tag text-brand-orange mb-6"
+            >
+              Programme exclusif — Dirigeants & membres de CODIR
+            </motion.span>
+            
+            <h1 className="text-white font-bold leading-[1.05] uppercase mb-8">
+              <span className="block text-[clamp(2.5rem,5vw,4.5rem)] text-white/90">Le Cercle des</span>
+              <span className="block text-[clamp(2.5rem,5vw,4.5rem)] text-brand-orange">LEADERS</span>
+              <span className="block text-[clamp(2.5rem,5vw,4.5rem)] text-white">Communicants</span>
+            </h1>
+            
+            <p className="text-white/70 text-[clamp(16px,1.8vw,22px)] leading-relaxed max-w-xl mb-10 font-medium">
+              Le cercle exclusif qui transforme la prise de parole des dirigeants
+              en avantage compétitif. Gagnez en charisme, en clarté et en leadership à l'oral.
+            </p>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8 }}
+              className="flex flex-col sm:flex-row items-start sm:items-center gap-4"
+            >
+              <a href="#inscription" className="btn-orange w-full sm:w-auto justify-center text-[13px] py-4 px-8">
+                Réserver mon entretien de sélection
+              </a>
+              <a href="#programme" className="btn-white-outline w-full sm:w-auto justify-center text-[13px] py-4 px-8 border-white/20 hover:bg-white/10 hover:text-white">
+                Découvrir le programme
+              </a>
+            </motion.div>
+          </motion.div>
+          
+          {/* Right Status Carousel */}
+          <motion.div 
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="w-full lg:w-2/5"
+          >
+            <CircleSlider />
+          </motion.div>
+          
         </div>
-        <div className="flex justify-between items-center py-3 border-b border-white/10 text-[13px] text-white/80 font-bold">
-          <span>Cercle N°2 — Avr. 2025</span>
-          <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-red-500/15 text-red-400 border border-red-500/30">Complet</span>
-        </div>
-        <div className="flex justify-between items-center py-3 border-b border-white/10 text-[13px] text-white/80 font-bold">
-          <span>Cercle N°3 — Sep. 2025</span>
-          <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-red-500/15 text-red-400 border border-red-500/30">Complet</span>
-        </div>
-        <div className="flex justify-between items-center pt-4 mt-2 border-t border-brand-orange/30 text-[13px] font-bold">
-          <span className="text-brand-orange">Cercle N°4 — 2026</span>
-          <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-green-500/15 text-green-400 border border-green-500/30">Ouvert</span>
-        </div>
-        
-        <a href="#inscription" className="btn-orange w-full justify-center mt-6 text-[13px]">
-          Candidater →
-        </a>
-      </motion.div>
+      </div>
     </section>
   );
 }
