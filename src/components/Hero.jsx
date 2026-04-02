@@ -262,11 +262,7 @@ export default function Hero() {
                       src={logo.src}
                       alt={logo.alt}
                       loading="lazy"
-                      className="w-full h-full object-contain"
-                      style={{
-                        filter: 'brightness(0) invert(1)',
-                        opacity: 0.6,
-                      }}
+                      className="w-full h-full object-contain brightness-0 invert opacity-60"
                     />
                   </div>
                 ))}
