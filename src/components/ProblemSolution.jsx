@@ -1,5 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import LazyVideo from './LazyVideo';
 
 const problems = [
   {
@@ -15,6 +16,28 @@ const problems = [
     desc: "Obtenir l'adhésion rapide de vos équipes, partenaires et hiérarchie demande une maîtrise de l'oral que l'expérience seule ne suffit pas toujours à développer.",
   }
 ];
+
+function ScrollNumber({ index }) {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "center center"]
+  });
+  // Stagger: each number starts revealing later
+  const start = index * 0.15;
+  const end = start + 0.6;
+  const opacity = useTransform(scrollYProgress, [start, end], [0.05, 0.5]);
+  const blur = useTransform(scrollYProgress, [start, end], [8, 0]);
+  const scale = useTransform(scrollYProgress, [start, end], [0.9, 1]);
+
+  return (
+    <motion.div ref={ref} className="mb-6" style={{ opacity, scale, filter: useTransform(blur, v => `blur(${v}px)`) }}>
+      <span className="text-[5rem] font-bold text-brand-orange leading-none block">
+        0{index + 1}
+      </span>
+    </motion.div>
+  );
+}
 
 export default function ProblemSolution() {
   return (
@@ -45,13 +68,7 @@ export default function ProblemSolution() {
               transition={{ delay: index * 0.2 }}
               className="relative pr-8"
             >
-              {/* Modern Graphic Element instead of old icon */}
-              <div className="mb-8 relative">
-                <span className="text-[100px] font-bold text-brand-orange/10 absolute -top-12 -left-6 leading-none selection:bg-transparent pointer-events-none">
-                  0{index + 1}
-                </span>
-                <div className="w-12 h-1 bg-brand-orange rounded-full relative z-10" />
-              </div>
+              <ScrollNumber index={index} />
 
               <h3 className="text-2xl font-bold mb-4">{item.title}</h3>
               <p className="text-brand-dark-2/70 text-lg leading-relaxed">
@@ -72,16 +89,12 @@ export default function ProblemSolution() {
         className="container-custom"
       >
         <div className="relative rounded-[2rem] overflow-hidden shadow-2xl">
-          {/* Background Video */}
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover bg-brand-dark"
-          >
-            <source src="https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/bandeau-accueil.mp4" type="video/mp4" />
-          </video>
+          {/* Background Video — lazy loaded */}
+          <LazyVideo
+            src={`${import.meta.env.BASE_URL}accueil-video.mp4`}
+            poster={`${import.meta.env.BASE_URL}posters/accueil.jpg`}
+            className="absolute inset-0"
+          />
           {/* Overlay gradient */}
           <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/80 via-brand-dark/50 to-transparent" />
 

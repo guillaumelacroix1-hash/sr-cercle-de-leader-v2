@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import LazyVideo from './LazyVideo';
 
 const features = [
   { val: "10", unit: "mois", label: "d'accompagnement intensif" },
@@ -62,15 +63,11 @@ export default function FormatPrice() {
       >
         {/* Background Video — Eye */}
         <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover bg-brand-dark"
-          >
-            <source src="https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/bandeau-oeil.mp4" type="video/mp4" />
-          </video>
+          <LazyVideo
+            src={`${import.meta.env.BASE_URL}oeil-video.mp4`}
+            poster={`${import.meta.env.BASE_URL}posters/oeil.jpg`}
+            className="absolute inset-0"
+          />
           <div className="absolute inset-0 bg-brand-dark/50" />
         </div>
 

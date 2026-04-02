@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, Users, MapPin, Layers } from 'lucide-react';
+import LazyVideo from './LazyVideo';
 
 const features = [
   { val: "10", unit: "mois", label: "d'accompagnement intensif", icon: Clock },
@@ -210,9 +211,11 @@ export default function ProgramDetails() {
             className="relative rounded-xl p-12 lg:p-16 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10 overflow-hidden"
           >
             <div className="absolute inset-0 z-0">
-              <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover bg-brand-dark">
-                <source src="https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/bandeau-oeil.mp4" type="video/mp4" />
-              </video>
+              <LazyVideo
+                src={`${import.meta.env.BASE_URL}oeil-video.mp4`}
+                poster={`${import.meta.env.BASE_URL}posters/oeil.jpg`}
+                className="absolute inset-0"
+              />
               <div className="absolute inset-0 bg-brand-dark/40" />
             </div>
             <div className="relative z-10">

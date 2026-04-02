@@ -32,6 +32,17 @@
   font-weight: 700; font-style: italic; font-display: swap;
 }
 
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@layer utilities {
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;

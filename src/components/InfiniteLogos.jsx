@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 
 const logos = [
   { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-eads-300x300.jpg", alt: "EADS" },
@@ -18,54 +17,45 @@ const logos = [
   { src: "https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/logo-SC-Po-300x300.jpg", alt: "Sciences Po" },
 ];
 
-const doubledLogos = [...logos, ...logos];
+function LogoItem({ logo }) {
+  return (
+    <div className="shrink-0 w-[100px] h-[60px] md:w-[140px] md:h-[80px] overflow-hidden mx-3 md:mx-5 flex items-center justify-center">
+      <img
+        src={logo.src}
+        alt={logo.alt}
+        loading="lazy"
+        className="w-full h-full object-contain opacity-90"
+        style={{
+          filter: 'invert(1) brightness(2)',
+          mixBlendMode: 'screen',
+          transform: 'scale(1.7)',
+        }}
+      />
+    </div>
+  );
+}
 
 export default function InfiniteLogos() {
   return (
     <div className="relative bg-brand-dark border-t border-white/10 py-5 overflow-hidden">
-      {/* Label */}
       <p className="text-center text-[10px] md:text-[11px] font-bold uppercase tracking-[3px] text-white/60 mb-4">
         Ils font confiance à Stéphanie Raphaël
       </p>
 
-      {/* Marquee container */}
-      <div className="relative w-full flex overflow-hidden">
+      <div className="relative w-full overflow-hidden">
         {/* Fade edges */}
         <div className="absolute left-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-r from-brand-dark to-transparent z-10 pointer-events-none" />
         <div className="absolute right-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-l from-brand-dark to-transparent z-10 pointer-events-none" />
 
-        <motion.div
-          className="flex items-center shrink-0"
-          animate={{ x: ['0%', '-50%'] }}
-          transition={{
-            x: {
-              repeat: Infinity,
-              repeatType: 'loop',
-              duration: 30,
-              ease: 'linear',
-            },
-          }}
-          style={{ willChange: 'transform' }}
-        >
-          {doubledLogos.map((logo, i) => (
-            <div
-              key={i}
-              className="shrink-0 w-[100px] h-[60px] md:w-[140px] md:h-[80px] overflow-hidden mx-3 md:mx-5 flex items-center justify-center"
-            >
-              <img
-                src={logo.src}
-                alt={logo.alt}
-                loading="lazy"
-                className="w-full h-full object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
-                style={{
-                  filter: 'invert(1) brightness(2)',
-                  mixBlendMode: 'screen',
-                  transform: 'scale(1.7)',
-                }}
-              />
-            </div>
-          ))}
-        </motion.div>
+        {/* CSS animation marquee — two identical strips side by side */}
+        <div className="flex w-max animate-marquee">
+          <div className="flex items-center shrink-0">
+            {logos.map((logo, i) => <LogoItem key={`a-${i}`} logo={logo} />)}
+          </div>
+          <div className="flex items-center shrink-0">
+            {logos.map((logo, i) => <LogoItem key={`b-${i}`} logo={logo} />)}
+          </div>
+        </div>
       </div>
     </div>
   );

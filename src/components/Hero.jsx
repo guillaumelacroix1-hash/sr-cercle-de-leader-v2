@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const circles = [
@@ -143,18 +143,30 @@ function CircleSlider() {
 }
 
 export default function Hero() {
+  const [videoReady, setVideoReady] = useState(false);
+
   return (
     <section className="relative min-h-[85svh] flex items-center pt-24 pb-12 overflow-hidden bg-brand-dark">
       {/* Video Background */}
       <div className="absolute inset-0 w-full h-full z-0">
+        {/* Poster — always visible instantly */}
+        <img
+          src={`${import.meta.env.BASE_URL}posters/hero.jpg`}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover opacity-80 scale-105"
+          style={{ display: videoReady ? 'none' : 'block' }}
+        />
+        {/* Video — invisible until loaded and playing */}
         <video
           autoPlay
           muted
           loop
           playsInline
-          className="w-full h-full object-cover opacity-80 scale-105 bg-brand-dark"
+          onCanPlay={() => setVideoReady(true)}
+          className="absolute inset-0 w-full h-full object-cover opacity-80 scale-105"
+          style={{ opacity: videoReady ? 0.8 : 0, transition: 'opacity 0.8s ease' }}
         >
-          <source src="https://www.methodestephanieraphael.com/wp-content/uploads/2025/06/bandeau-les-cercles-methode-Stephanie-Raphael.mp4" type="video/mp4" />
+          <source src={`${import.meta.env.BASE_URL}hero-video.mp4`} type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/95 via-brand-dark/60 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-transparent to-transparent" />
