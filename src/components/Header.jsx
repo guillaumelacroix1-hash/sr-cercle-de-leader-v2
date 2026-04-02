@@ -41,7 +41,7 @@ export default function Header() {
       <div className="container-custom flex items-center justify-between">
         <a href="#" className="flex-shrink-0">
           <img
-            src="https://www.methodestephanieraphael.com/wp-content/uploads/2025/05/LOGO_SRM_HAUT_BLANC.png"
+            src={`${import.meta.env.BASE_URL}logo-sr.png`}
             alt="Logo Méthode Stéphanie Raphaël"
             className={`w-auto object-contain transition-all duration-500 ${isScrolled ? 'h-10 md:h-14' : 'h-20 md:h-28'}`}
             style={isScrolled ? { filter: 'invert(1) brightness(0)' } : {}}
