@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
-const NAV_ITEMS = ['Programme', 'Format', 'Témoignages'];
-
-function navId(item) {
-  return item.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
+const NAV_ITEMS = [
+  { label: 'Programme', href: '#programme' },
+  { label: 'Stéphanie', href: '#stephane' },
+  { label: 'Témoignages', href: '#temoignages' },
+  { label: 'FAQ', href: '#faq' },
+];
 
 export default function Header() {
   const { scrollY } = useScroll();
@@ -59,18 +60,18 @@ export default function Header() {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-6">
             {NAV_ITEMS.map((item, idx) => (
               <a
                 key={idx}
-                href={`#${navId(item)}`}
+                href={item.href}
                 className={`text-[13px] font-bold uppercase tracking-[1.5px] transition-colors duration-300 ${
                   isScrolled
                     ? 'text-brand-dark-2/70 hover:text-brand-orange'
                     : 'text-white/80 hover:text-white'
                 }`}
               >
-                {item}
+                {item.label}
               </a>
             ))}
           </nav>
@@ -108,11 +109,11 @@ export default function Header() {
                 {NAV_ITEMS.map((item, idx) => (
                   <a
                     key={idx}
-                    href={`#${navId(item)}`}
+                    href={item.href}
                     onClick={() => setMobileOpen(false)}
                     className="text-brand-dark-2/70 hover:text-brand-orange font-bold text-[14px] uppercase tracking-[1.5px] py-3 transition-colors"
                   >
-                    {item}
+                    {item.label}
                   </a>
                 ))}
               </div>
