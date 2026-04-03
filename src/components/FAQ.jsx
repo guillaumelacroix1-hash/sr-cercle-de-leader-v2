@@ -24,13 +24,13 @@ const faqs = [
 function FAQItem({ item, isOpen, onClick }) {
   return (
     <div className="border-b border-gray-200">
-      <button 
-        className="w-full py-6 flex items-center justify-between text-left font-bold text-lg text-brand-dark hover:text-brand-orange transition-colors"
+      <button
+        className="w-full py-4 sm:py-6 flex items-center justify-between text-left font-bold text-base sm:text-lg text-brand-dark hover:text-brand-orange transition-colors"
         onClick={onClick}
       >
-        <span>{item.q}</span>
-        <span className="ml-6 shrink-0 text-brand-orange">
-          {isOpen ? <Minus className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
+        <span className="pr-4">{item.q}</span>
+        <span className="shrink-0 text-brand-orange">
+          {isOpen ? <Minus className="w-4 h-4 sm:w-5 sm:h-5" /> : <Plus className="w-4 h-4 sm:w-5 sm:h-5" />}
         </span>
       </button>
       <AnimatePresence>
@@ -42,7 +42,7 @@ function FAQItem({ item, isOpen, onClick }) {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <p className="pb-6 text-gray-600 text-lg leading-relaxed">
+            <p className="pb-4 sm:pb-6 text-gray-600 text-base sm:text-lg leading-relaxed">
               {item.a}
             </p>
           </motion.div>
@@ -56,22 +56,22 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="bg-white py-24 relative overflow-hidden" id="faq">
+    <section className="bg-white py-16 sm:py-24 relative overflow-hidden" id="faq">
       <div className="container-custom max-w-[800px]">
-        <div className="mb-14">
+        <div className="mb-10 sm:mb-14">
           <span className="tag">Questions fréquentes</span>
-          <h2 className="font-bold text-[clamp(1.75rem,3.5vw,2.75rem)] uppercase leading-[1.15]">
+          <h2 className="font-bold text-[clamp(1.5rem,3.5vw,2.75rem)] uppercase leading-[1.15]">
             Tout ce qu'il faut savoir <span className="text-brand-orange">avant de postuler</span>
           </h2>
         </div>
 
-        <div className="bg-white rounded-xl p-6 md:p-10 shadow-sm border border-gray-200">
+        <div className="bg-white rounded-xl p-4 sm:p-6 md:p-10 shadow-sm border border-gray-200">
           {faqs.map((item, idx) => (
-            <FAQItem 
-              key={idx} 
-              item={item} 
-              isOpen={openIndex === idx} 
-              onClick={() => setOpenIndex(openIndex === idx ? -1 : idx)} 
+            <FAQItem
+              key={idx}
+              item={item}
+              isOpen={openIndex === idx}
+              onClick={() => setOpenIndex(openIndex === idx ? -1 : idx)}
             />
           ))}
         </div>
