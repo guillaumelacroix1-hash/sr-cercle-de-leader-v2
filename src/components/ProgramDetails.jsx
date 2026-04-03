@@ -175,7 +175,7 @@ export default function ProgramDetails() {
             </h2>
           </div>
 
-          {/* 4 metrics — open layout */}
+          {/* 4 metrics — icon above on mobile, inline on desktop */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-8 sm:gap-y-12 gap-x-4 sm:gap-x-8 mb-12 sm:mb-16">
             {features.map((item, index) => {
               const Icon = item.icon;
@@ -186,11 +186,11 @@ export default function ProgramDetails() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className={`relative ${index < 3 ? 'lg:border-r lg:border-brand-dark-2/10 lg:pr-8' : ''}`}
+                  className={`relative text-center sm:text-left ${index < 3 ? 'lg:border-r lg:border-brand-dark-2/10 lg:pr-8' : ''}`}
                 >
-                  <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-brand-orange/10 flex items-center justify-center shrink-0">
-                      <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-brand-orange" />
+                  <div className="flex flex-col items-center sm:flex-row sm:items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                    <div className="w-10 h-10 rounded-full bg-brand-orange/10 flex items-center justify-center shrink-0 mb-1 sm:mb-0">
+                      <Icon className="w-5 h-5 text-brand-orange" />
                     </div>
                     <div className="flex items-baseline gap-1 sm:gap-1.5">
                       <span className="text-[clamp(2rem,4vw,3.5rem)] font-bold text-brand-dark-2 leading-none">{item.val}</span>
@@ -208,7 +208,7 @@ export default function ProgramDetails() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative rounded-xl p-6 sm:p-12 lg:p-16 flex flex-col gap-6 sm:gap-8 lg:flex-row lg:items-center lg:justify-between lg:gap-10 overflow-hidden"
+            className="relative rounded-xl p-6 sm:p-12 lg:p-16 flex flex-col items-center text-center lg:text-left lg:items-start lg:flex-row lg:items-center lg:justify-between gap-6 sm:gap-8 lg:gap-10 overflow-hidden"
           >
             <div className="absolute inset-0 z-0">
               <LazyVideo
@@ -223,17 +223,17 @@ export default function ProgramDetails() {
             <div className="relative z-10">
               <h3 className="text-white font-bold text-xl sm:text-2xl uppercase mb-1.5 sm:mb-2">Investissement 2026/27</h3>
               <p className="text-white/75 text-base sm:text-lg">Adhésion annuelle · Engagement 10 mois</p>
-              <p className="text-white/60 text-sm sm:text-base mt-1.5 sm:mt-2">N° formation : 11 92 29538 92 · Île-de-France · Éligible financement entreprise</p>
+              <p className="text-white/60 text-sm sm:text-base mt-1.5 sm:mt-2">N° formation : 11 92 29538 92<br className="sm:hidden" /> Île-de-France · Éligible financement entreprise</p>
             </div>
 
             {/* Price */}
-            <div className="text-left lg:text-center shrink-0 relative z-10">
+            <div className="shrink-0 relative z-10">
               <div className="text-[clamp(2.5rem,5vw,4rem)] font-bold text-brand-orange leading-none">450 €</div>
               <p className="text-white/70 text-base sm:text-lg mt-1">net de taxe / mois</p>
             </div>
 
             {/* CTA card */}
-            <div className="relative z-10 bg-brand-orange/10 border border-brand-orange/25 rounded-lg p-5 sm:p-6 text-center shrink-0 lg:min-w-[220px]">
+            <div className="relative z-10 bg-brand-orange/10 border border-brand-orange/25 rounded-lg p-5 sm:p-6 text-center shrink-0 w-full sm:w-auto lg:min-w-[220px]">
               <span className="inline-block bg-brand-orange text-white text-xs sm:text-sm font-bold uppercase tracking-wider px-3 sm:px-4 py-1.5 rounded-full mb-2 sm:mb-3">Places disponibles</span>
               <h4 className="text-white font-bold uppercase text-lg sm:text-xl mb-1">Cercle N°4 — 2026</h4>
               <p className="text-white/50 text-sm sm:text-base mb-3 sm:mb-4">10 dirigeants maximum</p>
