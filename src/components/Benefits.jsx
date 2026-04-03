@@ -87,9 +87,9 @@ function Carousel3D({ benefits }) {
         </div>
       </motion.div>
 
-      {/* Mobile: simple card slider */}
+      {/* Mobile: simple card slider — fixed height to prevent layout shift */}
       <div
-        className="block md:hidden relative overflow-hidden"
+        className="block md:hidden relative overflow-hidden min-h-[240px] sm:min-h-[220px]"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
@@ -100,7 +100,7 @@ function Carousel3D({ benefits }) {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -60 }}
             transition={{ duration: 0.3 }}
-            className="w-full"
+            className="w-full absolute inset-x-0 top-0"
           >
             {(() => {
               const item = benefits[active];
